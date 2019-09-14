@@ -1,0 +1,10 @@
+form input, form select {
+  max-width: 20%;
+  display: inline-block;
+}
+form label {
+}
+
+.heigted{
+  height: 420px;
+}

@@ -1,0 +1,54 @@
+<div *ngIf="products">
+  <div>
+    <h3>{{title}}</h3>
+  </div>
+  <div *ngFor="let p of products._embedded.products">
+    <div class="col-md-6">
+    <div class="panel panel-default heigted">
+      <div class="panel-heading">
+        {{p.name}}
+      </div>
+      <div class="panel-body">
+        <img class="img-thumbnail img-rounded btn" (click)="onProductDetails(p)" src="{{catalogueService.host+'/photoProduct/'+p.id+'?ts='+getTs()}}" style="max-height: 150px">
+              <div *ngIf="isAdmin()">
+                  <button (click)="onEditProduct(p)">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                <p *ngIf="editPhoto && currentProduct==p">
+                  <input type="file" (change)="onSelectedFile($event)">
+                  <button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
+                  {{progress}}
+                </p>
+              </div>
+          <div>
+            {{p.description}}
+          </div>
+        <br>
+          <div>
+            <label>Price : {{p.currentPrice|number: '0.2'}} DH </label>
+          </div>
+        <div>
+          <span *ngIf="p.promotion">
+            <img src="assets/images/promo.png"  class="img-thumbnail img-circle" style="height: 30px">
+          </span>
+          <span *ngIf="p.selected">
+            <img src="assets/images/favorite.png"  class="img-thumbnail img-circle" style="height: 30px">
+          </span>
+          <span *ngIf="p.available">
+            <img src="assets/images/available.png"  class="img-thumbnail img-circle" style="height: 30px">
+          </span>
+        </div>
+        <div style="display: block">
+          <form #f="ngForm" (ngSubmit)="onAddProductToCaddy(p)">
+            <label class="control-label">Quantite : </label>
+            <input type="number" class="form-control" name="quantite" ngModel [(ngModel)]="p.quantity">
+            <button>
+              <img src="assets/images/caddy.png" style="height: 30px">
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

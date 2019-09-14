@@ -1,0 +1,38 @@
+<div class="panel">
+  <div class="panel-heading">
+    <ul class="nav nav-pills">
+      <li>
+        <button (click)="onAddCaddy()" class="btn btn-danger">
+          <span class="glyphicon glyphicon-plus pull-left"></span>
+        </button>
+      </li>
+      <li *ngFor="let cd of caddyService.caddies | keyvalue" [ngClass]="cd.key==caddyService.currentCaddyName?'active':''">
+        <a class="btn" (click)="onSelectCaddy(cd.key)">{{cd.key}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+     <thead>
+     <tr>
+       <th>ID</th><th>Name</th><th>Quantity</th><th>Prix</th>
+     </tr>
+     </thead>
+      <tbody>
+      <tr *ngFor="let pi of caddyService.getCurrentCaddy().items | keyvalue">
+        <td >{{pi.value.product.id}}</td>
+        <td>{{pi.value.product.name}}</td>
+        <td>{{pi.value.quantity}}</td>
+        <td>{{pi.value.price}}</td>
+      </tr>
+      <tr>
+        <td colspan="3">Total</td>
+        <td style="font-weight: bold">{{caddyService.getTotal()}}</td>
+      </tr>
+      <button class="btn btn-success" (click)="onNewOrder()">Commander</button>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
